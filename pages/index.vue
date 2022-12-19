@@ -57,7 +57,20 @@
 </template>
 
 <script>
+import {getToken, getData} from '../utils/index'
+
 export default {
-  name: 'IndexPage'
+  name: 'IndexPage',
+  async mounted(){
+    const r = await getToken('select * from terra.core.fact_msgs limit 10', this.$axios)
+    await getData(r, this.$axios)
+    this.fetchSomething()
+  },
+  methods: {
+    async fetchSomething() {
+      const ip = await this.$axios.$get('http://icanhazip.com')
+      console.log(ip);
+    }
+  }
 }
 </script>

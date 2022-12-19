@@ -1,19 +1,20 @@
 <template>
   <client-only>
     <div class="text-black" >
-      <VueApexCharts
+      <apexchart
         type="area"
         :options="chartOptions"
         :series="series"
-      ></VueApexCharts>
+      ></apexchart>
     </div>
   </client-only>
 </template>
 
 <script>
+// import VueApexCharts from 'vue-apexcharts'
 export default {
   components: {
-    VueApexCharts: () => import('vue-apexcharts')
+    // VueApexCharts
   },
   data() {
     return {

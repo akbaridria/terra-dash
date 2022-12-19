@@ -2,8 +2,8 @@
   <div class=" w-[80vw] mx-auto px-5 py-10">
     <div class="flex flex-col gap-y-5">
       <div class="container flex flex-col gap-y-5">
-        <div class="flex gap-5 py-5  overflow-x-auto">
-          <div class="text-sm flex gap-x-2 items-center px-4 py-2 rounded-xl justify-center bg-slate-700 hover:bg-slate-900 hover:transition-all " v-for="(item, index) in listTokens" :key="index">
+        <div class="flex gap-5 py-5 px-2  overflow-x-auto">
+          <div class="text-sm flex gap-x-2 items-center px-6 py-2 rounded-xl justify-center bg-slate-700 hover:bg-slate-900 hover:transition-all hover:outline hover:outline-offset-2  hover:outline-slate-700 " v-for="(item, index) in listTokens" :key="index">
             <img width="20" :src="item.icon" alt="">
             {{ item.name }}
           </div>
