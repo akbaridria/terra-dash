@@ -1,17 +1,18 @@
 <template>
   <div class="sticky top-0 h-screen w-[16vw] flex flex-col justify-between border-r-2 border-slate-700/50">
     <div>
-    <div class="flex items-center justify-between text-lg p-5 mb-5">
-        <img width="80px" src="@/assets/images/terra-black.svg" alt="terra-logo">
+    <div class="flex items-center justify-between text-lg px-5 pt-10 pb-5 mb-5">
+        <img width="80px" class="hidden lg:inline-flex" src="@/assets/images/terra-black.svg" alt="terra-logo">
+        <img width="80px" class="inline-flex lg:hidden" src="@/assets/images/terra-logo-mobile.svg" alt="terra-logo">
     </div>
-    <div class="px-5 py-3 text-white/50">
+    <div class="px-5 py-5 text-white/50 hidden lg:inline-flex">
         Dashboard
     </div>
     <div class="flex flex-col">
-        <div v-for="(item, index) in listMenu" :key="index" class="px-5 py-3 flex items-center gap-x-3 hover:bg-slate-900" :class="index === 0 ? 'bg-slate-900' : null">
+        <NuxtLink :to="`/${item.link}`" v-for="(item, index) in listMenu" :key="index" class="px-5 py-5 flex items-center gap-x-3 hover:bg-slate-700 hover:transition-all">
             <ion-icon :name="item.icon"></ion-icon>
-            <div>{{ item.title }}</div>
-        </div> 
+            <div class="hidden lg:inline-flex">{{ item.title }}</div>
+        </NuxtLink> 
     </div>
     </div>
     <div class="p-5">

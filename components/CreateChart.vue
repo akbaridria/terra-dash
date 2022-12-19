@@ -1,6 +1,6 @@
 <template>
   <client-only>
-    <div class="text-white" >
+    <div class="text-black" >
       <VueApexCharts
         type="area"
         :options="chartOptions"
@@ -320,12 +320,12 @@ export default {
             title: {
                 text: 'Daily Contracts Deployed',
                 align: 'left',
-                margin: 10,
+                margin: 20,
                 offsetX: 0,
                 offsetY: 0,
                 floating: false,
                 style: {
-                  fontSize:  '14px',
+                  fontSize:  '1rem',
                   fontWeight:  'bold',
                   fontFamily:  undefined,
                   color:  'white'
