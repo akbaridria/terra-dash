@@ -1,9 +1,12 @@
 <template>
   <div class="sticky top-0 h-screen w-[16vw] flex flex-col justify-between border-r-2 border-slate-700/50">
     <div>
-    <div class="flex items-center justify-between text-lg px-5 pt-10 pb-5 mb-5">
-        <img width="80px" class="hidden lg:inline-flex" src="@/assets/images/terra-black.svg" alt="terra-logo">
-        <img width="80px" class="inline-flex lg:hidden" src="@/assets/images/terra-logo-mobile.svg" alt="terra-logo">
+    <div class="flex items-center gap-x-2 text-lg px-5 pt-10 pb-5 mb-5">
+        <!-- <img width="80px" class="hidden lg:inline-flex" src="@/assets/images/terra-black.svg" alt="terra-logo"> -->
+        <img width="20rem" src="@/assets/images/terra-logo-mobile.svg" alt="terra-logo">
+        <div class="text-2xl font-bold hidden lg:inline-flex">TerraDash</div>
+        <!-- <div class="text-2xl font-bold lg:hidden">TD</div> -->
+
     </div>
     <div class="px-5 py-5 text-white/50 hidden lg:inline-flex">
         Dashboard
