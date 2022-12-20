@@ -48,136 +48,94 @@ export default {
     const listTokens = [
       {
         name: 'axlUSDC',
+        path: '	transfer/channel-6',
+        denom: 'uusdc',
         icon: 'https://extraterra-assets.s3.us-east-2.amazonaws.com/images/SVG/axlUSDC.svg'
       },
       {
         name: 'axlUSDT',
+        path: 'transfer/channel-6',
+        denom: 'uusdt',
         icon: 'https://extraterra-assets.s3.us-east-2.amazonaws.com/images/SVG/axlUSDT.svg'
       },
       {
         name: 'Atom',
+        path: 'transfer/channel-0',
+        denom: 'uatom',
         icon: 'https://extraterra-assets.s3.us-east-2.amazonaws.com/images/SVG/ATOM.svg'
+      },
+      {
+        name: 'Osmo',
+        path: 'transfer/channel-1',
+        denom: 'uosmo',
+        icon: 'https://extraterra-assets.s3.us-east-2.amazonaws.com/images/SVG/OSMO.svg'
+      },
+      {
+        name: 'Juno',
+        path: 'transfer/channel-2',
+        denom: 'ujuno',
+        icon: 'https://extraterra-assets.s3.us-east-2.amazonaws.com/images/SVG/JUNO.svg'
       },
        {
-        name: 'axlUSDC',
-        icon: 'https://extraterra-assets.s3.us-east-2.amazonaws.com/images/SVG/axlUSDC.svg'
+        name: 'Secret ',
+        path: 'transfer/channel-3',
+        denom: 'uscrt',
+        icon: 'https://extraterra-assets.s3.us-east-2.amazonaws.com/images/SVG/SCRT.svg'
       },
       {
-        name: 'axlUSDT',
-        icon: 'https://extraterra-assets.s3.us-east-2.amazonaws.com/images/SVG/axlUSDT.svg'
+        name: 'Graviton',
+        path: 'transfer/channel-4',
+        denom: 'ugraviton',
+        icon: 'https://extraterra-assets.s3.us-east-2.amazonaws.com/images/SVG/GRAV.svg'
       },
       {
-        name: 'Atom',
-        icon: 'https://extraterra-assets.s3.us-east-2.amazonaws.com/images/SVG/ATOM.svg'
+        name: 'Evmos',
+        path: 'transfer/channel-5',
+        denom: 'aevmos',
+        icon: 'https://extraterra-assets.s3.us-east-2.amazonaws.com/images/SVG/EVMOS.svg'
+      },
+      {
+        name: 'axlFrax',
+        path: 'transfer/channel-6',
+        denom: 'frax-wei',
+        icon: 'https://extraterra-assets.s3.us-east-2.amazonaws.com/images/SVG/axlFRAX.svg'
+      },
+      {
+        name: 'axlAVAX',
+        path: 'transfer/channel-6',
+        denom: 'wavax-wei',
+        icon: 'https://extraterra-assets.s3.us-east-2.amazonaws.com/images/wAVAX.png'
       },
        {
-        name: 'axlUSDC',
-        icon: 'https://extraterra-assets.s3.us-east-2.amazonaws.com/images/SVG/axlUSDC.svg'
+        name: 'axlBTC',
+        path: 'transfer/channel-6',
+        denom: 'wbtc-satoshi',
+        icon: 'https://extraterra-assets.s3.us-east-2.amazonaws.com/images/SVG/axlWBTC.svg'
       },
       {
-        name: 'axlUSDT',
-        icon: 'https://extraterra-assets.s3.us-east-2.amazonaws.com/images/SVG/axlUSDT.svg'
-      },
-      {
-        name: 'Atom',
-        icon: 'https://extraterra-assets.s3.us-east-2.amazonaws.com/images/SVG/ATOM.svg'
+        name: 'axlETH',
+        path: 'transfer/channel-6',
+        denom: 'weth-wei',
+        icon: 'https://extraterra-assets.s3.us-east-2.amazonaws.com/images/SVG/axlETH.svg'
       },
        {
-        name: 'axlUSDC',
-        icon: 'https://extraterra-assets.s3.us-east-2.amazonaws.com/images/SVG/axlUSDC.svg'
+        name: 'axlMatic',
+        path: 'transfer/channel-6',
+        denom: 'wmatic-wei',
+        icon: 'https://extraterra-assets.s3.us-east-2.amazonaws.com/images/SVG/axlMATIC.svg'
       },
       {
-        name: 'axlUSDT',
-        icon: 'https://extraterra-assets.s3.us-east-2.amazonaws.com/images/SVG/axlUSDT.svg'
+        name: 'USK',
+        path: 'transfer/channel-10',
+        denom: 'factory:kujira1qk00h5atutpsv900x202pxx42npjr9thg58dnqpa72f2p7m2luase444a7:uusk',
+        icon: 'https://extraterra-assets.s3.us-east-2.amazonaws.com/images/SVG/USK.svg'
       },
       {
-        name: 'Atom',
-        icon: 'https://extraterra-assets.s3.us-east-2.amazonaws.com/images/SVG/ATOM.svg'
+        name: 'Kujira',
+        path: 'transfer/channel-10',
+        denom: 'ukuji',
+        icon: 'https://extraterra-assets.s3.us-east-2.amazonaws.com/images/SVG/KUJI.svg'
       },
-       {
-        name: 'axlUSDC',
-        icon: 'https://extraterra-assets.s3.us-east-2.amazonaws.com/images/SVG/axlUSDC.svg'
-      },
-      {
-        name: 'axlUSDT',
-        icon: 'https://extraterra-assets.s3.us-east-2.amazonaws.com/images/SVG/axlUSDT.svg'
-      },
-      {
-        name: 'Atom',
-        icon: 'https://extraterra-assets.s3.us-east-2.amazonaws.com/images/SVG/ATOM.svg'
-      },
-       {
-        name: 'axlUSDC',
-        icon: 'https://extraterra-assets.s3.us-east-2.amazonaws.com/images/SVG/axlUSDC.svg'
-      },
-      {
-        name: 'axlUSDT',
-        icon: 'https://extraterra-assets.s3.us-east-2.amazonaws.com/images/SVG/axlUSDT.svg'
-      },
-      {
-        name: 'Atom',
-        icon: 'https://extraterra-assets.s3.us-east-2.amazonaws.com/images/SVG/ATOM.svg'
-      },
-       {
-        name: 'axlUSDC',
-        icon: 'https://extraterra-assets.s3.us-east-2.amazonaws.com/images/SVG/axlUSDC.svg'
-      },
-      {
-        name: 'axlUSDT',
-        icon: 'https://extraterra-assets.s3.us-east-2.amazonaws.com/images/SVG/axlUSDT.svg'
-      },
-      {
-        name: 'Atom',
-        icon: 'https://extraterra-assets.s3.us-east-2.amazonaws.com/images/SVG/ATOM.svg'
-      },
-       {
-        name: 'axlUSDC',
-        icon: 'https://extraterra-assets.s3.us-east-2.amazonaws.com/images/SVG/axlUSDC.svg'
-      },
-      {
-        name: 'axlUSDT',
-        icon: 'https://extraterra-assets.s3.us-east-2.amazonaws.com/images/SVG/axlUSDT.svg'
-      },
-      {
-        name: 'Atom',
-        icon: 'https://extraterra-assets.s3.us-east-2.amazonaws.com/images/SVG/ATOM.svg'
-      },
-       {
-        name: 'axlUSDC',
-        icon: 'https://extraterra-assets.s3.us-east-2.amazonaws.com/images/SVG/axlUSDC.svg'
-      },
-      {
-        name: 'axlUSDT',
-        icon: 'https://extraterra-assets.s3.us-east-2.amazonaws.com/images/SVG/axlUSDT.svg'
-      },
-      {
-        name: 'Atom',
-        icon: 'https://extraterra-assets.s3.us-east-2.amazonaws.com/images/SVG/ATOM.svg'
-      },
-       {
-        name: 'axlUSDC',
-        icon: 'https://extraterra-assets.s3.us-east-2.amazonaws.com/images/SVG/axlUSDC.svg'
-      },
-      {
-        name: 'axlUSDT',
-        icon: 'https://extraterra-assets.s3.us-east-2.amazonaws.com/images/SVG/axlUSDT.svg'
-      },
-      {
-        name: 'Atom',
-        icon: 'https://extraterra-assets.s3.us-east-2.amazonaws.com/images/SVG/ATOM.svg'
-      },
-       {
-        name: 'axlUSDC',
-        icon: 'https://extraterra-assets.s3.us-east-2.amazonaws.com/images/SVG/axlUSDC.svg'
-      },
-      {
-        name: 'axlUSDT',
-        icon: 'https://extraterra-assets.s3.us-east-2.amazonaws.com/images/SVG/axlUSDT.svg'
-      },
-      {
-        name: 'Atom',
-        icon: 'https://extraterra-assets.s3.us-east-2.amazonaws.com/images/SVG/ATOM.svg'
-      }
     ]
     return {
       listTokens

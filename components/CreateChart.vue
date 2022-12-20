@@ -17,6 +17,11 @@ export default {
     // VueApexCharts
   },
   props: {
+    title: {
+      type: String,
+      required: false,
+      default: 'Daily Contracts Deployed'
+    },
     typeChart: {
       type: String,
       required: false,
@@ -25,7 +30,7 @@ export default {
     dataSeries: {
       type: Array,
       required: false,
-      default: [
+      default: () => [
                 [1327359600000,30.95],
                 [1327446000000,31.34],
                 [1327532400000,31.18],
@@ -122,7 +127,7 @@ export default {
               show:false
             },
             title: {
-                text: 'Daily Contracts Deployed',
+                text: this.title,
                 align: 'left',
                 margin: 20,
                 offsetX: 0,

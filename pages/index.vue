@@ -68,37 +68,38 @@
 
       </div>
       <div class="grid grid-cols-1 gap-y-5 lg:grid lg:grid-cols-2 lg:gap-x-5">
-        <div class="bg-slate-900 border-2 border-white/50 p-5 rounded-lg w-full">
-          <CreateChart v-if="!loading.dailyContracts" :dataSeries="result.dailyContracts" :typeChart="'bar'" />
+        <div class="bg-slate-900 border-2 border-white/50 p-5 rounded-lg w-full h-fit ">
+          <CreateChart v-if="!loading.dailyContracts" :dataSeries="result.dailyContracts" :typeChart="'bar'" title="Daily Contract Deployed" />
           <div v-else class="grid gap-y-3" >
             <Skeleton />
             <Skeleton height="big" width="full" />
           </div>
           <div>
           </div>
-          <div class="grid grid-cols-3 gap-x-2 bg-slate-700 p-1 mt-2 rounded-lg w-fit mx-auto justify-end self-end">
-            <div class="p-2 rounded-lg text-sm text-center bg-slate-900 hover:bg-slate-900 hover:transition-all">Day</div>
-            <div class="p-2 rounded-lg text-sm text-center hover:bg-slate-900 hover:transition-all">Week</div>
-            <div class="p-2 rounded-lg text-sm text-center hover:bg-slate-900 hover:transition-all">Month</div>
+          <div class="grid grid-cols-3 gap-x-2 bg-slate-700 p-1 mt-2 rounded-lg w-fit mx-auto justify-end self-end cursor-pointer">
+            <div :class="{'bg-slate-900' : timeRangeDaily === 'day'}" @click="timeRangeDaily = 'day'" class="p-2 rounded-lg text-sm text-center hover:bg-slate-900 hover:transition-all">Day</div>
+            <div :class="{'bg-slate-900' : timeRangeDaily === 'week'}" @click="timeRangeDaily = 'week'" class="p-2 rounded-lg text-sm text-center hover:bg-slate-900 hover:transition-all">Week</div>
+            <div :class="{'bg-slate-900' : timeRangeDaily === 'month'}" @click="timeRangeDaily = 'month'" class="p-2 rounded-lg text-sm text-center hover:bg-slate-900 hover:transition-all">Month</div>
           </div>  
         </div>
-        <div class="bg-slate-900 border-2 border-white/50 p-5 rounded-lg w-full">
-          <CreateChart v-if="!loading.dailyContracts" :dataSeries="result.dailyContracts" :typeChart="'bar'" />
+        <div class="bg-slate-900 border-2 border-white/50 p-5 rounded-lg w-full h-fit ">
+          <CreateChart v-if="!loading.cumulativeContract" :dataSeries="result.cumulativeContract" :typeChart="'area'" title="Cumulative Contract Deployed" />
           <div v-else class="grid gap-y-3 " >
             <Skeleton />
             <Skeleton height="big" width="full" />
           </div>
           <div>
           </div>
-          <div class="grid grid-cols-3 gap-x-2 bg-slate-700 p-1 mt-2 rounded-lg w-fit mx-auto justify-end self-end">
-            <div class="p-2 rounded-lg text-sm text-center bg-slate-900 hover:bg-slate-900 hover:transition-all">Day</div>
-            <div class="p-2 rounded-lg text-sm text-center hover:bg-slate-900 hover:transition-all">Week</div>
-            <div class="p-2 rounded-lg text-sm text-center hover:bg-slate-900 hover:transition-all">Month</div>
+          <div class="grid grid-cols-3 gap-x-2 bg-slate-700 p-1 mt-2 rounded-lg w-fit mx-auto justify-end self-end cursor-pointer">
+            <div :class="{'bg-slate-900' : timeRangeCumulative === 'day'}" @click="timeRangeCumulative = 'day'" class="p-2 rounded-lg text-sm text-center hover:bg-slate-900 hover:transition-all">Day</div>
+            <div :class="{'bg-slate-900' : timeRangeCumulative === 'week'}" @click="timeRangeCumulative = 'week'" class="p-2 rounded-lg text-sm text-center hover:bg-slate-900 hover:transition-all">Week</div>
+            <div :class="{'bg-slate-900' : timeRangeCumulative === 'month'}" @click="timeRangeCumulative = 'month'" class="p-2 rounded-lg text-sm text-center hover:bg-slate-900 hover:transition-all">Month</div>
           </div>  
         </div>
       </div>
       <div class="grid grid-cols-1 gap-y-5 lg:grid lg:grid-cols-2 lg:gap-x-5">
-        <div class="bg-slate-900 border-2 border-white/50 p-5 rounded-lg w-full ">
+        <div class="bg-slate-900 border-2 border-white/50 p-5 rounded-lg w-full h-fit ">
+        <template v-if="!loading.topCreator">
           <div class="font-bold text-lg mb-5">
             Top Contract Creators
           </div>
@@ -112,38 +113,51 @@
               </tr>
             </thead>
             <tbody>
-              <tr class="text-left hover:bg-slate-700" v-for="index in 10" :key="index">
-                <td class="border-b border-slate-100 text-sm dark:border-slate-700 p-2  text-slate-500 dark:text-slate-400">{{ index }}</td>
-                <td class="border-b border-slate-100 text-sm dark:border-slate-700 p-2  text-slate-500 dark:text-slate-400">terraasd...1234asd</td>
-                <td class="border-b border-slate-100 text-sm dark:border-slate-700 p-2  text-slate-500 dark:text-slate-400">90</td>
+              <tr class="text-left hover:bg-slate-700" v-for="(item, index) in result.topCreator" :key="index">
+                <td class="border-b border-slate-100 text-sm dark:border-slate-700 p-2  text-slate-500 dark:text-slate-400">{{ index + 1 }}</td>
+                <td class="border-b border-slate-100 text-sm dark:border-slate-700 p-2  text-slate-500 dark:text-slate-400"><a :href="`https://terrasco.pe/mainnet/address/${item[0]}`" target="_blank">{{ item[0].slice(0, 5) + '...' + item[0].slice(-5) }}</a></td>
+                <td class="border-b border-slate-100 text-sm dark:border-slate-700 p-2  text-slate-500 dark:text-slate-400">{{ item[1] }}</td>
               </tr>
             </tbody>
           </table>
           </div>
+        </template>
+        <div v-else class="grid gap-y-3 " >
+            <Skeleton />
+            <Skeleton height="big" width="full" />
+        </div>
         </div>
 
-        <div class="bg-slate-900 border-2 border-white/50 p-5 rounded-lg w-full ">
+        <div class="bg-slate-900 border-2 border-white/50 p-5 rounded-lg w-full h-fit overflow-x-auto">
+          <template v-if="!loading.trendingContract">
           <div class="font-bold text-lg mb-5">
-            Top Contract Creators
+            Trending Contract To Interact (7d)
           </div>
           <div class="flex flex-col gap-y-3">
             <table class="table-auto text-sm">
             <thead>
               <tr class="font-semibold">
                 <th class="border-b dark:border-slate-600 font-medium p-3  pt-0 pb-2 text-slate-400 dark:text-slate-200 text-sm text-left">No</th>
-                <th class="border-b dark:border-slate-600 font-medium p-3  pt-0 pb-2 text-slate-400 dark:text-slate-200 text-sm text-left">Address</th>
-                <th class="border-b dark:border-slate-600 font-medium p-3  pt-0 pb-2 text-slate-400 dark:text-slate-200 text-sm text-left">Contract Deployed</th>
+                <th class="border-b dark:border-slate-600 font-medium p-3  pt-0 pb-2 text-slate-400 dark:text-slate-200 text-sm text-left">Contract_address</th>
+                <th class="border-b dark:border-slate-600 font-medium p-3  pt-0 pb-2 text-slate-400 dark:text-slate-200 text-sm text-left">Label</th>
+                <th class="border-b dark:border-slate-600 font-medium p-3  pt-0 pb-2 text-slate-400 dark:text-slate-200 text-sm text-left">Total Executed</th>
               </tr>
             </thead>
             <tbody>
-              <tr class="text-left hover:bg-slate-700" v-for="index in 10" :key="index">
-                <td class="border-b border-slate-100 text-sm dark:border-slate-700 p-2  text-slate-500 dark:text-slate-400">{{ index }}</td>
-                <td class="border-b border-slate-100 text-sm dark:border-slate-700 p-2  text-slate-500 dark:text-slate-400">terraasd...1234asd</td>
-                <td class="border-b border-slate-100 text-sm dark:border-slate-700 p-2  text-slate-500 dark:text-slate-400">90</td>
+              <tr class="text-left hover:bg-slate-700" v-for="(item, index) in result.trendingContract" :key="index">
+                <td class="border-b border-slate-100 text-sm dark:border-slate-700 p-2  text-slate-500 dark:text-slate-400">{{ index + 1 }}</td>
+                <td class="border-b border-slate-100 text-sm dark:border-slate-700 p-2  text-slate-500 dark:text-slate-400"><a :href="`https://terrasco.pe/mainnet/address/${item[0]}`" target="_blank">{{ item[0].slice(0, 5) + '...' + item[0].slice(-5) }}</a></td>
+                <td class="border-b border-slate-100 text-sm dark:border-slate-700 p-2  text-slate-500 dark:text-slate-400">{{ item[1] }}</td>
+                <td class="border-b border-slate-100 text-sm dark:border-slate-700 p-2  text-slate-500 dark:text-slate-400">{{ item[2] }}</td>
               </tr>
             </tbody>
           </table>
           </div>
+          </template>
+          <div v-else class="grid gap-y-3 " >
+            <Skeleton />
+            <Skeleton height="big" width="full" />
+        </div>
         </div>
       </div>
     </div>
@@ -152,41 +166,98 @@
 
 <script>
 import {getToken, getData} from '../utils/index'
-import {queryTotalContracts, queryTotalContracts7d, queryTotalContractsPrev7d, queryTotalContractCreator, queryDailyContract} from '../utils/dataQuery'
+import {
+  queryTotalContracts, 
+  queryTotalContracts7d, 
+  queryTotalContractsPrev7d, 
+  queryTotalContractCreator, 
+  queryDailyContract,
+  queryCumulativeContract,
+  queryTopCreatorContract,
+  queryTrendinContract
+} from '../utils/dataQuery'
+
 export default {
   name: 'IndexPage',
   data(){
     return {
+      timeRangeDaily:'day',
+      timeRangeCumulative: 'day',
       loading: {
         totalContract: false,
         totalConatract7d: false,
         totalContractCreator: false,
-        dailyContracts: false
+        dailyContracts: false,
+        cumulativeContract: false,
+        topCreator: false,
+        trendingContract: false,
       },
       result: {
         totalContract: null,
         totalConatract7d: null,
         rateTotalContract7d: null,
         totalContractCreator: null,
-        dailyContracts: null
+        dailyContracts: null,
+        cumulativeContract: null,
+        topCreator: null,
+        trendingContract: null
       }
+    }
+  },
+  watch: {
+    timeRangeCumulative(newValue) {
+      this.fetchCumulativeContract(newValue)
+    },
+    timeRangeDaily(newValue) {
+      this.fetchDailyContract(newValue)
     }
   },
   mounted(){
      this.fetchTotalContracts();
      this.fetchTotalContract7d();
      this.fetchTotalContractCreator();
-     this.fetchDailyContract()
+     this.fetchDailyContract();
+     this.fetchCumulativeContract();
+     this.fetchTopCreator();
+     this.fetchTrendingContract();
   },
   methods: {
 
-    async fetchDailyContract(){
-      this.loading.dailyContracts = true
-      const token = await getToken(queryDailyContract, this.$axios);
+    async fetchTrendingContract(){
+      this.loading.trendingContract = true
+      const token = await getToken(queryTrendinContract, this.$axios);
       const result = await getData(token.result, this.$axios)
-      if(result.status === 200) {
+      if(result && result.status === 200) {
+        this.result.trendingContract = result.result.results
+        this.loading.trendingContract = false
+      }
+    },
+
+    async fetchTopCreator(){
+      this.loading.topCreator = true
+      const token = await getToken(queryTopCreatorContract, this.$axios);
+      const result = await getData(token.result, this.$axios)
+      if(result && result.status === 200) {
+        this.result.topCreator = result.result.results
+        this.loading.topCreator = false
+      }
+    },
+
+    async fetchCumulativeContract(time = 'day'){
+      this.loading.cumulativeContract = true
+      const token = await getToken(queryCumulativeContract(time), this.$axios);
+      const result = await getData(token.result, this.$axios)
+      if(result && result.status === 200) {
+        this.result.cumulativeContract = result.result.results
+        this.loading.cumulativeContract = false
+      }
+    },
+    async fetchDailyContract(time = 'day'){
+      this.loading.dailyContracts = true
+      const token = await getToken(queryDailyContract(time), this.$axios);
+      const result = await getData(token.result, this.$axios)
+      if(result && result.status === 200) {
         this.result.dailyContracts = result.result.results
-        console.log(this.result.dailyContracts);
         this.loading.dailyContracts = false
       }
     },
@@ -195,7 +266,7 @@ export default {
       this.loading.totalContract = true
       const token = await getToken(queryTotalContracts, this.$axios);
       const result = await getData(token.result, this.$axios)
-      if(result.status === 200) {
+      if(result && result.status === 200) {
         this.result.totalContract = result.result.results[0][0]
         this.loading.totalContract = false
       }
@@ -205,7 +276,7 @@ export default {
       this.loading.totalContractCreator = true
       const token = await getToken(queryTotalContractCreator, this.$axios);
       const result = await getData(token.result, this.$axios)
-      if(result.status === 200) {
+      if(result && result.status === 200) {
         this.result.totalContractCreator = result.result.results[0][0]
         this.loading.totalContractCreator = false
       }
@@ -215,7 +286,7 @@ export default {
       this.loading.totalConatract7d = true
       const token = await getToken(queryTotalContracts7d, this.$axios);
       const result = await getData(token.result, this.$axios)
-      if(result.status === 200) {
+      if(result && result.status === 200) {
         this.result.totalConatract7d = result.result.results[0][0]
         const tokenPrev = await getToken(queryTotalContractsPrev7d, this.$axios);
         const resultPrev = await getData(tokenPrev.result, this.$axios)

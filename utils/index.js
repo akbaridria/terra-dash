@@ -11,16 +11,13 @@ export const getToken = async (sql_query, axios) => {
     data,
     { headers }
   );
-  if (result.status === 200)
+  if (result && result.status === 200)
     return {
       status: 200,
       result: result.data.token,
     };
   else
-    return {
-      status: 400,
-      result: false,
-    };
+    getToken(sql_query, axios)
 };
 
 export const getData = async (token, axios) => {
@@ -28,7 +25,7 @@ export const getData = async (token, axios) => {
     `https://node-api.flipsidecrypto.com/queries/${token}?pageNumber=1&pageSize=9999`,
     { headers }
   );
-  if (result.status === 200) {
+  if (result && result.status === 200) {
     if (result.data.status === "running") {
       getData(token, axios);
     } else {
@@ -38,9 +35,6 @@ export const getData = async (token, axios) => {
       };
     }
   } else {
-    return {
-      status: 400,
-      result: false,
-    };
+    getData(token, axios)
   }
 };
