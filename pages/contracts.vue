@@ -225,8 +225,8 @@ export default {
 
     async fetchTrendingContract(){
       this.loading.trendingContract = true
-      const token = await getToken(queryTrendinContract, this.$axios);
-      const result = await getData(token.result, this.$axios)
+      const token = await getToken(queryTrendinContract, this.$axios, this.$config.apiKey);
+      const result = await getData(token.result, this.$axios, this.$config.apiKey)
       if(result && result.status === 200) {
         this.result.trendingContract = result.result.results
         this.loading.trendingContract = false
@@ -235,8 +235,8 @@ export default {
 
     async fetchTopCreator(){
       this.loading.topCreator = true
-      const token = await getToken(queryTopCreatorContract, this.$axios);
-      const result = await getData(token.result, this.$axios)
+      const token = await getToken(queryTopCreatorContract, this.$axios, this.$config.apiKey);
+      const result = await getData(token.result, this.$axios, this.$config.apiKey)
       if(result && result.status === 200) {
         this.result.topCreator = result.result.results
         this.loading.topCreator = false
@@ -245,8 +245,8 @@ export default {
 
     async fetchCumulativeContract(time = 'day'){
       this.loading.cumulativeContract = true
-      const token = await getToken(queryCumulativeContract(time), this.$axios);
-      const result = await getData(token.result, this.$axios)
+      const token = await getToken(queryCumulativeContract(time), this.$axios, this.$config.apiKey);
+      const result = await getData(token.result, this.$axios, this.$config.apiKey)
       if(result && result.status === 200) {
         this.result.cumulativeContract = result.result.results
         this.loading.cumulativeContract = false
@@ -254,8 +254,8 @@ export default {
     },
     async fetchDailyContract(time = 'day'){
       this.loading.dailyContracts = true
-      const token = await getToken(queryDailyContract(time), this.$axios);
-      const result = await getData(token.result, this.$axios)
+      const token = await getToken(queryDailyContract(time), this.$axios, this.$config.apiKey);
+      const result = await getData(token.result, this.$axios, this.$config.apiKey)
       if(result && result.status === 200) {
         this.result.dailyContracts = result.result.results
         this.loading.dailyContracts = false
@@ -264,8 +264,8 @@ export default {
 
     async fetchTotalContracts() {
       this.loading.totalContract = true
-      const token = await getToken(queryTotalContracts, this.$axios);
-      const result = await getData(token.result, this.$axios)
+      const token = await getToken(queryTotalContracts, this.$axios, this.$config.apiKey);
+      const result = await getData(token.result, this.$axios, this.$config.apiKey)
       if(result && result.status === 200) {
         this.result.totalContract = result.result.results[0][0]
         this.loading.totalContract = false
@@ -274,8 +274,8 @@ export default {
 
     async fetchTotalContractCreator() {
       this.loading.totalContractCreator = true
-      const token = await getToken(queryTotalContractCreator, this.$axios);
-      const result = await getData(token.result, this.$axios)
+      const token = await getToken(queryTotalContractCreator, this.$axios,this, $config.apiKey);
+      const result = await getData(token.result, this.$axios, this.$config.apiKey)
       if(result && result.status === 200) {
         this.result.totalContractCreator = result.result.results[0][0]
         this.loading.totalContractCreator = false
@@ -284,12 +284,12 @@ export default {
 
     async fetchTotalContract7d(){
       this.loading.totalConatract7d = true
-      const token = await getToken(queryTotalContracts7d, this.$axios);
-      const result = await getData(token.result, this.$axios)
+      const token = await getToken(queryTotalContracts7d, this.$axios, this.$config.apiKey);
+      const result = await getData(token.result, this.$axios, this.$config.apiKey)
       if(result && result.status === 200) {
         this.result.totalConatract7d = result.result.results[0][0]
-        const tokenPrev = await getToken(queryTotalContractsPrev7d, this.$axios);
-        const resultPrev = await getData(tokenPrev.result, this.$axios)
+        const tokenPrev = await getToken(queryTotalContractsPrev7d, this.$axios, this.$config.apiKey);
+        const resultPrev = await getData(tokenPrev.result, this.$axios, this.$config.apiKey)
         if(resultPrev.status === 200) {
           this.result.rateTotalContract7d = ((this.result.totalConatract7d - resultPrev.result.results[0][0])/resultPrev.result.results[0][0])*100
           this.loading.totalConatract7d = false

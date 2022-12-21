@@ -1,7 +1,10 @@
+export const getToken = async (sql_query, axios, apiKey) => {
+  const headers = {
+    Accept: "application/json",
+    "Content-Type": "application/json",
+    "x-api-key": apiKey,
+  };
 
-const headers = { "Accept": "application/json", "Content-Type": "application/json", "x-api-key": process.env.SHROOM_KEY }
-
-export const getToken = async (sql_query, axios) => {
   const data = {
     sql: sql_query,
     ttlMinutes: 2,
@@ -16,11 +19,16 @@ export const getToken = async (sql_query, axios) => {
       status: 200,
       result: result.data.token,
     };
-  else
-    return getToken(sql_query, axios);
+  else return getToken(sql_query, axios);
 };
 
-export const getData = async (token, axios) => {
+export const getData = async (token, axios, apiKey) => {
+  const headers = {
+    Accept: "application/json",
+    "Content-Type": "application/json",
+    "x-api-key": apiKey,
+  };
+
   const result = await axios.get(
     `https://node-api.flipsidecrypto.com/queries/${token}?pageNumber=1&pageSize=100000`,
     { headers }
@@ -35,6 +43,6 @@ export const getData = async (token, axios) => {
       };
     }
   } else {
-    getData(token, axios);
+    return getData(token, axios);
   }
 };

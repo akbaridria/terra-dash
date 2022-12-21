@@ -248,8 +248,8 @@ export default {
     },  
     async fetchOutflow(denom = "uusdc", decimal='6'){
       this.loading.outflowIBC = true
-      const token = await getToken(queryOutflowIBC(denom, decimal), this.$axios);
-      const result = await getData(token.result, this.$axios)
+      const token = await getToken(queryOutflowIBC(denom, decimal), this.$axios, this.$config.apiKey);
+      const result = await getData(token.result, this.$axios, this.$config.apiKey)
       if(result && result.status === 200) {
         this.result.outflowIBC = await result.result.results[0][0]
         this.loading.outflowIBC = false
@@ -258,8 +258,8 @@ export default {
 
     async fetchInflow(path = "transfer/channel-6/uusdc", decimal='6'){
       this.loading.inflowIBC = true
-      const token = await getToken(queryInflowIBC(path, decimal), this.$axios);
-      const result = await getData(token.result, this.$axios)
+      const token = await getToken(queryInflowIBC(path, decimal), this.$axios, this.$config.apiKey);
+      const result = await getData(token.result, this.$axios, this.$config.apiKey)
       if(result && result.status === 200) {
         this.result.inflowIBC = await result.result.results[0][0]
         this.loading.inflowIBC = false
@@ -268,8 +268,8 @@ export default {
 
     async fetchCurrentSupply(path = "transfer/channel-6/uusdc", denom = "uusdc", decimal='6'){
       this.loading.supplyIBC = true
-      const token = await getToken(queryCurrentSupplyIBC(path, denom, decimal), this.$axios);
-      const result = await getData(token.result, this.$axios)
+      const token = await getToken(queryCurrentSupplyIBC(path, denom, decimal), this.$axios, this.$config.apiKey);
+      const result = await getData(token.result, this.$axios, this.$config.apiKey)
       if(result && result.status === 200) {
         this.result.supplyIBC = await result.result.results[0][1]
         this.loading.supplyIBC = false
@@ -277,8 +277,8 @@ export default {
     },
     async fetchDailySupplyIBC(path = "transfer/channel-6/uusdc", denom = "uusdc", decimal='6'){
       this.loading.dailySupplyIBC = true
-      const token = await getToken(queryDailySupplyIBC(path, denom, decimal), this.$axios);
-      const result = await getData(token.result, this.$axios)
+      const token = await getToken(queryDailySupplyIBC(path, denom, decimal), this.$axios, this.$config.apiKey);
+      const result = await getData(token.result, this.$axios, this.$config.apiKey)
       if(result && result.status === 200) {
         this.result.dailySupplyIBC = await result.result.results
         this.loading.dailySupplyIBC = false
@@ -286,8 +286,8 @@ export default {
     },
     async fetchDailyNetflowIBC(path = "transfer/channel-6/uusdc", denom = "uusdc", decimal='6', time="day"){
       this.loading.dailyNetflowIBC = true
-      const token = await getToken(queryDailyNetFlowIBC(path, denom, decimal, time), this.$axios);
-      const result = await getData(token.result, this.$axios)
+      const token = await getToken(queryDailyNetFlowIBC(path, denom, decimal, time), this.$axios, this.$config.apiKey);
+      const result = await getData(token.result, this.$axios, this.$config.apiKey)
       if(result && result.status === 200) {
         this.result.dailyNetflowIBC = await result.result.results
         this.loading.dailyNetflowIBC = false
