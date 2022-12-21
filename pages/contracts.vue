@@ -69,31 +69,31 @@
       </div>
       <div class="grid grid-cols-1 gap-y-5 lg:grid lg:grid-cols-2 lg:gap-x-5">
         <div class="bg-gray-200 dark:bg-slate-900 border-2 border-white/50 p-5 rounded-lg w-full h-fit">
-          <CreateChart :key="$store.state.theme" v-if="!loading.dailyContracts" :dataSeries="result.dailyContracts" :typeChart="'bar'" title="Daily Contract Deployed" height="400" />
-          <div v-else class="grid gap-y-3" >
-            <Skeleton />
-            <Skeleton height="big" width="full" />
-          </div>
-          <div>
-          </div>
+        <template v-if="!loading.dailyContracts">
+          <CreateChart :key="$store.state.theme"  :dataSeries="result.dailyContracts" :typeChart="'bar'" title="Daily Contract Deployed" height="400" />
           <div class="grid grid-cols-3 gap-x-2 bg-gray-400 dark:bg-slate-700 p-1 mt-2 rounded-lg w-fit mx-auto justify-end self-end cursor-pointer">
             <div :class="{'bg-gray-200 dark:bg-slate-900' : timeRangeDaily === 'day'}" @click="timeRangeDaily = 'day'" class="p-2 rounded-lg text-sm text-center hover:bg-gray-200 dark:hover:bg-slate-900 hover:transition-all">Day</div>
             <div :class="{'bg-gray-200 dark:bg-slate-900' : timeRangeDaily === 'week'}" @click="timeRangeDaily = 'week'" class="p-2 rounded-lg text-sm text-center hover:bg-gray-200 dark:hover:bg-slate-900 hover:transition-all">Week</div>
             <div :class="{'bg-gray-200 dark:bg-slate-900' : timeRangeDaily === 'month'}" @click="timeRangeDaily = 'month'" class="p-2 rounded-lg text-sm text-center hover:bg-gray-200 dark:hover:bg-slate-900 hover:transition-all">Month</div>
+          </div>
+        </template>
+         <div v-else class="grid gap-y-3" >
+            <Skeleton />
+            <Skeleton height="big" width="full" />
           </div>  
         </div>
         <div class="bg-gray-200 dark:bg-slate-900 border-2 border-white/50 p-5 rounded-lg w-full h-fit ">
-          <CreateChart :key="$store.state.theme" v-if="!loading.cumulativeContract" :dataSeries="result.cumulativeContract" :typeChart="'area'" title="Cumulative Contract Deployed" height="400" />
-          <div v-else class="grid gap-y-3 " >
-            <Skeleton />
-            <Skeleton height="big" width="full" />
-          </div>
-          <div>
-          </div>
+        <template v-if="!loading.cumulativeContract">
+          <CreateChart :key="$store.state.theme"  :dataSeries="result.cumulativeContract" :typeChart="'area'" title="Cumulative Contract Deployed" height="400" />
           <div class="grid grid-cols-3 gap-x-2 bg-gray-400 dark:bg-slate-700 p-1 mt-2 rounded-lg w-fit mx-auto justify-end self-end cursor-pointer">
             <div :class="{'bg-gray-200 dark:bg-slate-900' : timeRangeCumulative === 'day'}" @click="timeRangeCumulative = 'day'" class="p-2 rounded-lg text-sm text-center hover:bg-gray-200 dark:hover:bg-slate-900 hover:transition-all">Day</div>
             <div :class="{'bg-gray-200 dark:bg-slate-900' : timeRangeCumulative === 'week'}" @click="timeRangeCumulative = 'week'" class="p-2 rounded-lg text-sm text-center hover:bg-gray-200 dark:hover:bg-slate-900 hover:transition-all">Week</div>
             <div :class="{'bg-gray-200 dark:bg-slate-900' : timeRangeCumulative === 'month'}" @click="timeRangeCumulative = 'month'" class="p-2 rounded-lg text-sm text-center hover:bg-gray-200 dark:hover:bg-slate-900 hover:transition-all">Month</div>
+          </div>
+        </template>
+        <div v-else class="grid gap-y-3 " >
+            <Skeleton />
+            <Skeleton height="big" width="full" />
           </div>  
         </div>
       </div>
@@ -274,7 +274,7 @@ export default {
 
     async fetchTotalContractCreator() {
       this.loading.totalContractCreator = true
-      const token = await getToken(queryTotalContractCreator, this.$axios,this, $config.apiKey);
+      const token = await getToken(queryTotalContractCreator, this.$axios,this.$config.apiKey);
       const result = await getData(token.result, this.$axios, this.$config.apiKey)
       if(result && result.status === 200) {
         this.result.totalContractCreator = result.result.results[0][0]

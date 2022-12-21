@@ -19,7 +19,7 @@ export const getToken = async (sql_query, axios, apiKey) => {
       status: 200,
       result: result.data.token,
     };
-  else return getToken(sql_query, axios);
+  else return getToken(sql_query, axios, apiKey);
 };
 
 export const getData = async (token, axios, apiKey) => {
@@ -35,7 +35,7 @@ export const getData = async (token, axios, apiKey) => {
   );
   if (result && result.status === 200) {
     if (result.data.status === "running") {
-      return getData(token, axios);
+      return getData(token, axios, apiKey);
     } else {
       return {
         status: 200,
@@ -43,6 +43,6 @@ export const getData = async (token, axios, apiKey) => {
       };
     }
   } else {
-    return getData(token, axios);
+    return getData(token, axios, apiKey);
   }
 };
