@@ -201,3 +201,244 @@ from
 order by
   3 desc
 `
+
+export const queryDailySupplyIBC = (path, denom, decimal) => `
+with
+  data_from as (
+    select
+      block_timestamp::date as date,
+      sum(
+        to_number(try_parse_json(attribute_value):amount) / pow(10, ${decimal})
+      ) as amount
+    from
+      terra.core.fact_msg_attributes
+    where
+      msg_type = 'send_packet'
+      and attribute_key = 'packet_data'
+      and parse_json(attribute_value):denom = '${path}'
+    group by
+      1
+  ),
+  data_to as (
+    select
+      block_timestamp::date as date,
+      sum(
+        to_number(try_parse_json(attribute_value):amount) / pow(10, ${decimal})
+      ) as amount
+    from
+      terra.core.fact_msg_attributes
+    where
+      msg_type = 'write_acknowledgement'
+      and attribute_key = 'packet_data'
+      and try_parse_json(attribute_value):denom = '${denom}'
+    group by
+      1
+  ),
+  data_all as (
+    select
+      case
+        when a.date is null then b.date
+        else a.date
+      end as date,
+      sum(
+        case
+          when a.amount is null then 0
+          else a.amount
+        end - case
+          when b.amount is null then 0
+          else b.amount
+        end
+      ) as total_supply
+    from
+      data_to a
+      full join data_from b on a.date = b.date
+    group by
+      1
+  )
+select
+  date,
+  sum(total_supply) over (
+    order by
+      date asc
+  ) as total
+from
+  data_all
+order by
+  1
+`;
+
+export const queryInflowIBC = (path, decimal) => `
+with
+  data_from as (
+    select
+      sum(
+        to_number(try_parse_json(attribute_value):amount) / pow(10, ${decimal})
+      ) as amount
+    from
+      terra.core.fact_msg_attributes
+    where
+      msg_type = 'send_packet'
+      and attribute_key = 'packet_data'
+      and parse_json(attribute_value):denom = '${path}'
+      and block_timestamp::date >= CURRENT_DATE - 7
+  )
+select
+  case
+    when amount is null then 0
+    else amount
+  end as total
+from
+  data_from
+`;
+
+export const queryOutflowIBC = (denom, decimal) => `
+with
+  data_to as (
+    select
+      sum(
+        to_number(try_parse_json(attribute_value):amount) / pow(10, ${decimal})
+      ) as amount
+    from
+      terra.core.fact_msg_attributes
+    where
+      msg_type = 'write_acknowledgement'
+      and attribute_key = 'packet_data'
+      and try_parse_json(attribute_value):denom = '${denom}'
+      and block_timestamp::date >= CURRENT_DATE - 7
+  )
+select
+  case
+    when amount is null then 0
+    else amount
+  end as total
+from
+  data_to
+`;
+
+export const queryDailyNetFlowIBC = (path, denom, decimal, time) => `
+with
+  data_from as (
+    select
+      date_trunc('${time}', block_timestamp::date) as date,
+      sum(
+        to_number(try_parse_json(attribute_value):amount) / pow(10, ${decimal})
+      ) as amount
+    from
+      terra.core.fact_msg_attributes
+    where
+      msg_type = 'send_packet'
+      and attribute_key = 'packet_data'
+      and parse_json(attribute_value):denom = '${path}'
+    group by
+      1
+  ),
+  data_to as (
+    select
+      date_trunc('${time}', block_timestamp::date) as date,
+      sum(
+        to_number(try_parse_json(attribute_value):amount) / pow(10, ${decimal})
+      ) as amount
+    from
+      terra.core.fact_msg_attributes
+    where
+      msg_type = 'write_acknowledgement'
+      and attribute_key = 'packet_data'
+      and try_parse_json(attribute_value):denom = '${denom}'
+    group by
+      1
+  ),
+  data_all as (
+    select
+      case
+        when a.date is null then b.date
+        else a.date
+      end as date,
+      sum(
+        case
+          when a.amount is null then 0
+          else a.amount
+        end - case
+          when b.amount is null then 0
+          else b.amount
+        end
+      ) as total_supply
+    from
+      data_to a
+      full join data_from b on a.date = b.date
+    group by
+      1
+  )
+select
+  *
+from
+  data_all
+order by
+  date asc
+`;
+
+export const queryCurrentSupplyIBC = (path, denom, decimal) => `
+with
+  data_from as (
+    select
+      block_timestamp::date as date,
+      sum(
+        to_number(try_parse_json(attribute_value):amount) / pow(10, ${decimal})
+      ) as amount
+    from
+      terra.core.fact_msg_attributes
+    where
+      msg_type = 'send_packet'
+      and attribute_key = 'packet_data'
+      and parse_json(attribute_value):denom = '${path}'
+    group by
+      1
+  ),
+  data_to as (
+    select
+      block_timestamp::date as date,
+      sum(
+        to_number(try_parse_json(attribute_value):amount) / pow(10, ${decimal})
+      ) as amount
+    from
+      terra.core.fact_msg_attributes
+    where
+      msg_type = 'write_acknowledgement'
+      and attribute_key = 'packet_data'
+      and try_parse_json(attribute_value):denom = '${denom}'
+    group by
+      1
+  ),
+  data_all as (
+    select
+      case
+        when a.date is null then b.date
+        else a.date
+      end as date,
+      sum(
+        case
+          when a.amount is null then 0
+          else a.amount
+        end - case
+          when b.amount is null then 0
+          else b.amount
+        end
+      ) as total_supply
+    from
+      data_to a
+      full join data_from b on a.date = b.date
+    group by
+      1
+  )
+select
+  date,
+  sum(total_supply) over (
+    order by
+      date asc
+  ) as total
+from
+  data_all
+order by
+  1 desc
+limit
+  1
+`;

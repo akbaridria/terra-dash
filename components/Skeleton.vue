@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex animate-pulse">
-      <div :class="{'h-64': height === 'big', 'w-36' : width === 'small', 'w-72' : width === 'medium', 'w-full': width === 'full', 'h-6' : height === 'small', 'h-36' : height === 'medium', 'h-full': height === 'full'}"  class="bg-gray-300 rounded-md" >
+      <div :class="{'h-[400px]': height === 'big', 'w-36' : width === 'small', 'w-72' : width === 'medium', 'w-full': width === 'full', 'h-6' : height === 'small', 'h-36' : height === 'medium', 'h-full': height === 'full'}"  class="bg-gray-300 rounded-md" >
       </div>
     </div>
 </div>

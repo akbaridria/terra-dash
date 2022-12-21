@@ -17,17 +17,17 @@ export const getToken = async (sql_query, axios) => {
       result: result.data.token,
     };
   else
-    getToken(sql_query, axios)
+    return getToken(sql_query, axios);
 };
 
 export const getData = async (token, axios) => {
   const result = await axios.get(
-    `https://node-api.flipsidecrypto.com/queries/${token}?pageNumber=1&pageSize=9999`,
+    `https://node-api.flipsidecrypto.com/queries/${token}?pageNumber=1&pageSize=100000`,
     { headers }
   );
   if (result && result.status === 200) {
     if (result.data.status === "running") {
-      getData(token, axios);
+      return getData(token, axios);
     } else {
       return {
         status: 200,
@@ -35,6 +35,6 @@ export const getData = async (token, axios) => {
       };
     }
   } else {
-    getData(token, axios)
+    getData(token, axios);
   }
 };

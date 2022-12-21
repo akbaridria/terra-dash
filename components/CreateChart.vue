@@ -5,6 +5,7 @@
         :type="typeChart"
         :options="chartOptions"
         :series="series"
+        :height="height"
       ></apexchart>
     </div>
   </client-only>
@@ -17,6 +18,11 @@ export default {
     // VueApexCharts
   },
   props: {
+    height: {
+      type: String,
+      required: false,
+      default: '500'
+    },
     title: {
       type: String,
       required: false,
@@ -118,9 +124,20 @@ export default {
             chart: {
               id: 'area-datetime',
               type: this.typeChart,
-              height: '50%',
               zoom: {
                 autoScaleYaxis: true
+              }
+            },
+            plotOptions: {
+              bar: {
+                colors: {
+                  ranges: [{
+                    from: -9999999999,
+                    to: 0,
+                    color: '#F15B46'
+                  }]
+                },
+                columnWidth: '80%',
               }
             },
             grid: {
@@ -137,7 +154,7 @@ export default {
                   fontSize:  '1rem',
                   fontWeight:  'bold',
                   fontFamily:  undefined,
-                  color:  'white'
+                  color:  this.$store.state.theme === 'dark' ? 'white' : 'black'
                 },
             },
             dataLabels: {
@@ -153,14 +170,17 @@ export default {
               tickAmount: 6,
               labels: {
                 style: {
-                  colors: 'white'
+                  colors: this.$store.state.theme === 'dark' ? 'white' : 'black'
                 }
               }
             },
             yaxis: {
               labels: {
+                formatter: function(value) {
+                  return Intl.NumberFormat('en', {notation: "compact"}).format(value)
+                },
                 style: {
-                  colors: 'white'
+                  colors: this.$store.state.theme === 'dark' ? 'white' : 'black'
                 }
               }
             }, 
@@ -169,17 +189,19 @@ export default {
                 format: 'dd MMM yyyy'
               }
             },
-            // fill: {
-            //   type: 'gradient',
-            //   gradient: {
-            //     shadeIntensity: 1,
-            //     opacityFrom: 0.7,
-            //     opacityTo: 0.1,
-            //     stops: [0, 100]
-            //   }
-            // },
+            fill: this.typeChart === 'area' ? {
+              type: 'gradient',
+              gradient: {
+                shadeIntensity: 1,
+                opacityFrom: 0.7,
+                opacityTo: 0.1,
+                stops: [0, 100]
+              }
+            } : {}
           },
     }
+  },
+  mounted(){
   }
 }
 </script>

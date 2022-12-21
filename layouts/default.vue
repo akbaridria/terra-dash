@@ -1,7 +1,7 @@
 <template>
-  <div class="dark">
+  <div :class="$store.state.theme === 'light' ? 'light': 'dark'">
     <div class="min-h-screen font-roboto flex dark:bg-slate-800 dark:text-white">
-      <Header />
+      <Header :theme="theme" @changeTheme="changeTheme($event)" />
 
       <Nuxt />
       
@@ -17,7 +17,17 @@
 
 <script>
 export default {
-
+  name: 'default-layout',
+  methods: {
+    changeTheme(){
+      if(this.$store.state.theme === 'dark') {
+       this.$store.commit('SET_THEME', 'light')
+      } else {
+        this.$store.commit('SET_THEME', 'dark')
+      }
+      console.log(this.$store.state);
+    }
+  }
 }
 
 </script>

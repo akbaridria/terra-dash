@@ -8,18 +8,18 @@
         <!-- <div class="text-2xl font-bold lg:hidden">TD</div> -->
 
     </div>
-    <div class="px-5 py-5 text-white/50 hidden lg:inline-flex">
+    <div class="px-5 py-5 text-black/50 dark:text-white/50 hidden lg:inline-flex">
         Dashboard
     </div>
     <div class="flex flex-col">
-        <NuxtLink :to="`/${item.link}`" v-for="(item, index) in listMenu" :key="index" class="px-5 py-5 flex items-center gap-x-3 hover:bg-slate-700 hover:transition-all">
+        <NuxtLink :class="{'bg-gray-200 dark:bg-slate-700': $route.path === item.link}" :to="`${item.link}`" v-for="(item, index) in listMenu" :key="index" class="px-5 py-5 flex items-center gap-x-3 dark:hover:bg-slate-700 hover:bg-gray-200 hover:transition-all">
             <ion-icon :name="item.icon"></ion-icon>
             <div class="hidden lg:inline-flex">{{ item.title }}</div>
         </NuxtLink> 
     </div>
     </div>
-    <div class="p-5">
-       <ion-icon name="moon"></ion-icon>
+    <div  class="p-5">
+       <ion-icon class="cursor-pointer" @click="$emit('changeTheme')" :key="theme" :name="theme === 'dark' ? 'moon' : 'sunny'"></ion-icon>
     </div>
   </div>
 </template>
@@ -27,38 +27,45 @@
 <script>
 export default {
     name: 'Header',
+    props: {
+        theme: {
+            type: String,
+            required: false,
+            default: 'dark'
+        }
+    },
     data(){
         const listMenu = [
             {
                 title: 'Network Stats',
                 icon: 'podium-sharp',
-                link: ''
+                link: '/'
             },
             {
                 title: 'Contracts',
                 icon: 'document',
-                link: 'contracts'
+                link: '/contracts'
             },
             {
                 title: 'IBC Tokens',
                 icon: 'share-social',
-                link: 'ibc-tokens'
+                link: '/ibc-tokens'
             },
             {
                 title: 'Dex Screener',
                 icon: 'swap-horizontal-sharp',
-                link: 'dex'
+                link: '/dex'
             },
             {
                 title: 'Cex Screener',
                 icon: 'globe-sharp',
-                link: 'cex'
+                link: '/cex'
             }
         ]
         return {
             listMenu
         }
-    }
+    },
 }
 </script>
 

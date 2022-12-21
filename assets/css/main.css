@@ -2,9 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-.nuxt-link-exact-active {
-  background-color: rgb(51 65 85);
-}
+
+
 
 ::-webkit-scrollbar {
   width: 0.4rem;
