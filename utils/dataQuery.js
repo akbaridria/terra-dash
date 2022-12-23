@@ -267,7 +267,7 @@ order by
   1
 `;
 
-export const queryInflowIBC = (path, decimal) => `
+export const queryOutflowIBC = (path, decimal) => `
 with
   data_from as (
     select
@@ -291,7 +291,7 @@ from
   data_from
 `;
 
-export const queryOutflowIBC = (denom, decimal) => `
+export const queryInflowIBC = (denom, decimal) => `
 with
   data_to as (
     select

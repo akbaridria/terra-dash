@@ -243,12 +243,12 @@ export default {
       this.fetchDailySupplyIBC(this.selectedIBC.path + '/' + this.selectedIBC.denom, this.selectedIBC.denom, this.selectedIBC.decimal);
       this.fetchDailyNetflowIBC(this.selectedIBC.path + '/' + this.selectedIBC.denom, this.selectedIBC.denom, this.selectedIBC.decimal, this.timeRangeNetflow);
       this.fetchCurrentSupply(this.selectedIBC.path + '/' + this.selectedIBC.denom, this.selectedIBC.denom, this.selectedIBC.decimal);
-      this.fetchOutflow(this.selectedIBC.denom, this.selectedIBC.decimal);
-      this.fetchInflow(this.selectedIBC.path + '/' + this.selectedIBC.denom, this.selectedIBC.decimal);
+      this.fetchOutflow(this.selectedIBC.path + '/' + this.selectedIBC.denom, this.selectedIBC.decimal);
+      this.fetchInflow(this.selectedIBC.denom, this.selectedIBC.decimal);
     },  
-    async fetchOutflow(denom = "uusdc", decimal='6'){
+    async fetchOutflow(path = "transfer/channel-6/uusdc", decimal='6'){
       this.loading.outflowIBC = true
-      const token = await getToken(queryOutflowIBC(denom, decimal), this.$axios, this.$config.apiKey);
+      const token = await getToken(queryOutflowIBC(path, decimal), this.$axios, this.$config.apiKey);
       const result = await getData(token.result, this.$axios, this.$config.apiKey)
       if(result && result.status === 200) {
         this.result.outflowIBC = await result.result.results[0][0]
@@ -256,9 +256,9 @@ export default {
       }
     },
 
-    async fetchInflow(path = "transfer/channel-6/uusdc", decimal='6'){
+    async fetchInflow(denom = "uusdc", decimal='6'){
       this.loading.inflowIBC = true
-      const token = await getToken(queryInflowIBC(path, decimal), this.$axios, this.$config.apiKey);
+      const token = await getToken(queryInflowIBC(denom, decimal), this.$axios, this.$config.apiKey);
       const result = await getData(token.result, this.$axios, this.$config.apiKey)
       if(result && result.status === 200) {
         this.result.inflowIBC = await result.result.results[0][0]
