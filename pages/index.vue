@@ -198,15 +198,15 @@ export default {
   data(){
     return {
       loading: {
-        totalTransaction: false,
-        rateSuccess: false,
-        averageFee: false,
-        blockTime: false,
-        dailyTx: false,
-        cumulativeTx: false,
-        dailySuccessRate: false,
-        dailyAvgFee: false,
-        dailyBlockTime: false
+        totalTransaction: true,
+        rateSuccess: true,
+        averageFee: true,
+        blockTime: true,
+        dailyTx: true,
+        cumulativeTx: true,
+        dailySuccessRate: true,
+        dailyAvgFee: true,
+        dailyBlockTime: true
       },
       result: {
         totalTransaction: null,

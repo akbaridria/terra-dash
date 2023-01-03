@@ -84,7 +84,7 @@
       </div>
       <div class="bg-gray-200 dark:bg-slate-900 border-2 border-white/50 p-5 rounded-lg w-full">
       <template v-if="!loading.dailyNetflowIBC">
-        <CreateChart  :key="$store.state.theme"  :dataSeries="result.dailyNetflowIBC" :title="`Daily Netflow of ${selectedIBC.name}`" typeChart="bar" />
+        <CreateChart  :key="$store.state.theme"  :dataSeries="result.dailyNetflowIBC" :title="`Netflow of ${selectedIBC.name}`" typeChart="bar" />
         <div class="grid grid-cols-3 gap-x-2 bg-gray-400 dark:bg-slate-700 p-1 mt-2 rounded-lg w-fit mx-auto justify-end self-end cursor-pointer">
           <div :class="{'bg-gray-200 dark:bg-slate-900' : timeRangeNetflow === 'day'}" @click="timeRangeNetflow = 'day'" class="p-2 rounded-lg text-sm text-center hover:bg-gray-200 dark:hover:bg-slate-900 hover:transition-all">Day</div>
           <div :class="{'bg-gray-200 dark:bg-slate-900' : timeRangeNetflow === 'week'}" @click="timeRangeNetflow = 'week'" class="p-2 rounded-lg text-sm text-center hover:bg-gray-200 dark:hover:bg-slate-900 hover:transition-all">Week</div>
@@ -208,11 +208,11 @@ export default {
     return {
       listTokens,
       loading: {
-        dailySupplyIBC: false,
-        dailyNetflowIBC: false,
-        inflowIBC: false,
-        outflowIBC: false,
-        supplyIBC: false
+        dailySupplyIBC: true,
+        dailyNetflowIBC: true,
+        inflowIBC: true,
+        outflowIBC: true,
+        supplyIBC: true
       },
       result: {
         dailySupplyIBC: null,
@@ -222,7 +222,7 @@ export default {
         supplyIBC: null
       },
       selectedIBC: listTokens[0],
-      timeRangeNetflow : 'day'
+      timeRangeNetflow : 'week'
 
     }
   },

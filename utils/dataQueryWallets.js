@@ -20,6 +20,28 @@ order by
   1
 `;
 
+export const queryCumulativeWallets = `
+with
+  data_grouped as (
+    select
+      tx_sender,
+      min(date_trunc('day', block_timestamp::date)) as date
+    from
+      terra.core.fact_transactions
+    group by
+      1
+  )
+select
+  date,
+  sum(count(*)) over (order by date) as total
+from
+  data_grouped
+group by
+  1
+order by
+  1
+`;
+
 export const queryAllWallets = `
 select
   count(distinct tx_sender) as total
@@ -93,3 +115,15 @@ from
   data_now a
   join data_prev b on a.label = b.label
 `;
+
+export const queryDailyActiveWallets = (time) => `
+select
+  date_trunc('${time}', block_timestamp::date) as date,
+  count(distinct tx_sender) as total
+from
+  terra.core.fact_transactions
+group by
+  1
+order by
+  1
+`
