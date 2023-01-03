@@ -2,7 +2,6 @@
   <div class="min-h-screen w-[80rem] mx-auto px-5 py-20">
     <div class="container flex flex-col gap-y-5">
       <div class="grid grid-cols-1 gap-y-5 lg:grid lg:grid-cols-3 lg:gap-x-3 ">
-
         <div class="bg-gray-200 dark:bg-slate-900 border-2 border-white/50 p-5 rounded-lg w-full">
         <template  v-if="!loading.totalContract">
           <div class="font-bold">

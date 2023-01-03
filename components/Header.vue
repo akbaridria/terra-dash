@@ -42,6 +42,11 @@ export default {
                 link: '/'
             },
             {
+                title: 'Wallets',
+                icon: 'wallet-sharp',
+                link: '/wallets'
+            },
+            {
                 title: 'Contracts',
                 icon: 'document',
                 link: '/contracts'

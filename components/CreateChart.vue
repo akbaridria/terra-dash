@@ -151,7 +151,7 @@ export default {
                 offsetY: 0,
                 floating: false,
                 style: {
-                  fontSize:  '1rem',
+                  fontSize:  '1em',
                   fontWeight:  'bold',
                   fontFamily:  undefined,
                   color:  this.$store.state.theme === 'dark' ? 'white' : 'black'
