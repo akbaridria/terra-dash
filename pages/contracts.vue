@@ -34,7 +34,7 @@
                 </div>
               </span>
             </div>
-            <div class="text-2xl font-bold">{{ result.totalConatract7d }} <span :class="{'text-sm': true, 'text-red-600': result.rateTotalContract7d < 0, 'text-green-600': result.rateTotalContract7d > 0}"> {{ parseFloat(result.rateTotalContract7d).toFixed(2) }} % </span> </div>
+            <div class="text-2xl font-bold">{{ result.totalConatract7d }} <span :class="{'text-xs': true, 'text-red-600': result.rateTotalContract7d < 0, 'text-green-600': result.rateTotalContract7d > 0}"> {{ parseFloat(result.rateTotalContract7d).toFixed(2) }} % </span> </div>
           </template>
           <template v-else>
             <div class="grid gap-2">
