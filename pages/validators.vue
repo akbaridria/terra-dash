@@ -48,15 +48,15 @@
             <div class="bg-gray-200 dark:bg-slate-900 border-2 border-white/50 p-5 rounded-lg w-full">
               <template  v-if="!loading.statLoading">
                 <div class="font-bold">
-                  Est. Current Stake APR
+                  Percentage Luna Staked
                   <span class="group relative">
                     <ion-icon name="alert-circle-sharp"></ion-icon>
                     <div class="absolute text-sm font-normal bottom-8 min-w-[220px] rounded-lg p-2 -left-20 hidden bg-gray-300 dark:bg-slate-900 group-hover:inline-flex">
-                     Estimated Luna Stake APR.
+                      Percentage Luna Staked by total supply on terra mainnet.
                     </div>
                   </span>
                 </div>
-                <div class="text-2xl font-bold">{{ new Intl.NumberFormat().format(result.apr) }} <span class="text-xs">%</span></div>
+                <div class="text-2xl font-bold">{{ new Intl.NumberFormat().format(result.percentageStake) }} <span class="text-xs">%</span></div>
               </template>
               <template v-else>
                 <div class="grid gap-2">
@@ -83,18 +83,18 @@
                 <th class="border-b dark:border-slate-600 font-medium p-3  pt-0 pb-2 text-slate-400 dark:text-slate-200 text-sm text-left">Validator Name</th>
                 <th class="border-b dark:border-slate-600 font-medium p-3  pt-0 pb-2 text-slate-400 dark:text-slate-200 text-sm text-left">Address</th>
                 <th class="border-b dark:border-slate-600 font-medium p-3  pt-0 pb-2 text-slate-400 dark:text-slate-200 text-sm text-left">Voting Power</th>
-                <th class="border-b dark:border-slate-600 font-medium p-3  pt-0 pb-2 text-slate-400 dark:text-slate-200 text-sm text-left">Unique Delegation</th>
+                <!-- <th class="border-b dark:border-slate-600 font-medium p-3  pt-0 pb-2 text-slate-400 dark:text-slate-200 text-sm text-left">Unique Delegation</th> -->
                 <th class="border-b dark:border-slate-600 font-medium p-3  pt-0 pb-2 text-slate-400 dark:text-slate-200 text-sm text-left">Commissions</th>
               </tr>
             </thead>
             <tbody>
               <tr class="text-left hover:bg-slate-700" v-for="(item, index) in result.listValidators" :key="index">
                 <td class="border-b border-slate-100 text-sm dark:border-slate-700 p-2  text-slate-500 dark:text-slate-400">{{ index + 1 }}</td>
-                <td class="border-b border-slate-100 text-sm dark:border-slate-700 p-2  text-slate-500 dark:text-slate-400">{{ item.name }}</td>
-                <td class="border-b border-slate-100 text-sm dark:border-slate-700 p-2  text-slate-500 dark:text-slate-400"><a :href="`https://terrasco.pe/mainnet/address/${item.address}`" target="_blank">{{ item.address.slice(0, 5) + '...' + item.address.slice(-5) }}</a></td>
-                <td class="border-b border-slate-100 text-sm dark:border-slate-700 p-2  text-slate-500 dark:text-slate-400">{{ new Intl.NumberFormat().format(item.votingPower) }}</td>
-                <td class="border-b border-slate-100 text-sm dark:border-slate-700 p-2  text-slate-500 dark:text-slate-400">{{ new Intl.NumberFormat().format(item.uniqueDelegates) }}</td>
-                <td class="border-b border-slate-100 text-sm dark:border-slate-700 p-2  text-slate-500 dark:text-slate-400">{{ item.commission }}%</td>
+                <td class="border-b border-slate-100 text-sm dark:border-slate-700 p-2  text-slate-500 dark:text-slate-400">{{ item.description.moniker }}</td>
+                <td class="border-b border-slate-100 text-sm dark:border-slate-700 p-2  text-slate-500 dark:text-slate-400"><a :href="`https://terrasco.pe/mainnet/validator/${item.operator_address}`" target="_blank">{{ item.operator_address.slice(0, 5) + '...' + item.operator_address.slice(-5) }}</a></td>
+                <td class="border-b border-slate-100 text-sm dark:border-slate-700 p-2  text-slate-500 dark:text-slate-400">{{ new Intl.NumberFormat().format(item.tokens/1e6) }}</td>
+                <!-- <td class="border-b border-slate-100 text-sm dark:border-slate-700 p-2  text-slate-500 dark:text-slate-400">{{ new Intl.NumberFormat().format(item.uniqueDelegates) }}</td> -->
+                <td class="border-b border-slate-100 text-sm dark:border-slate-700 p-2  text-slate-500 dark:text-slate-400">{{ parseInt(parseFloat(item.commission.commission_rates.rate)*100) }}%</td>
               </tr>
             </tbody>
           </table>
@@ -124,7 +124,8 @@ export default {
         lunaStaked: null,
         apr: null,
         totalValidator: null,
-        listValidators: null
+        listValidators: null,
+        percentageStake: null
       }
     }
   },
@@ -134,11 +135,17 @@ export default {
   methods: {
     async fetchData(){
       this.loading.statLoading = true
-      const data = await this.$axios.get('https://7nkwv3z5t1.execute-api.us-east-1.amazonaws.com/prod/listData?type=listPools&status=Bonded&key=2mwTEDr9zXJH323M&token=1672806362&app=LUNA')
-      this.result.lunaStaked = data.data.coinStat.totalStake;
-      this.result.totalValidator = data.data.data.length;
-      this.result.apr = data.data.coinStat.currentRewardRate;
-      this.result.listValidators = data.data.data;
+      const data = await this.$axios.get('https://phoenix-lcd.terra.dev/cosmos/staking/v1beta1/validators?status=BOND_STATUS_BONDED&pagination.limit=999')
+      const data2 = await this.$axios.get('https://api.coingecko.com/api/v3/coins/terra-luna-2')
+      const totalSupply = data2.data.market_data.total_supply;
+      let totalStaked = 0
+      data.data.validators.forEach(element => {
+        totalStaked += parseInt(element.tokens)
+      });
+      this.result.lunaStaked = totalStaked/1e6;
+      this.result.percentageStake = (this.result.lunaStaked/totalSupply)*100
+      this.result.totalValidator = data.data.validators.length;
+      this.result.listValidators = data.data.validators.sort((a,b) => parseInt(b.tokens) - parseInt(a.tokens));
       this.loading.statLoading = false
     }
   }

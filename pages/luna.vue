@@ -174,12 +174,13 @@ export default {
   methods: {
     async fetchData(){
       this.loading.statLoading = true
-      const data = await this.$axios.get('https://7nkwv3z5t1.execute-api.us-east-1.amazonaws.com/prod/listData?type=listPools&status=Bonded&key=2mwTEDr9zXJH323M&token=1672806362&app=LUNA')
-      this.result.price = data.data.coinStat.usdPrice;
-      this.result.circulating = data.data.coinStat.circulatingSupply;
-      this.result.supply = data.data.coinStat.totalSupply;
-      this.result.marketcap = data.data.coinStat.usdMcap;
-      this.result.fdv = data.data.coinStat.fdvMcap;
+      const data = await this.$axios.get('https://api.coingecko.com/api/v3/coins/terra-luna-2')
+      console.log(data)
+      this.result.price = data.data.market_data.current_price.usd;
+      this.result.circulating = data.data.market_data.circulating_supply;
+      this.result.supply = data.data.market_data.total_supply;
+      this.result.marketcap = data.data.market_data.market_cap.usd;
+      this.result.fdv = data.data.market_data.fully_diluted_valuation.usd;
       this.loading.statLoading = false
       this.loading.historyPrice = true
       const dataPrice = await this.$axios.get('https://api.coingecko.com/api/v3/coins/terra-luna-2/market_chart?vs_currency=usd&days=max&interval=daily');

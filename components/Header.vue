@@ -66,11 +66,11 @@ export default {
                 icon: 'shield-checkmark-sharp',
                 link: '/validators'
             },
-            {
-                title: 'Rich List',
-                icon: 'list-circle-sharp',
-                link: '/rich-list'
-            }
+            // {
+            //     title: 'Rich List',
+            //     icon: 'list-circle-sharp',
+            //     link: '/rich-list'
+            // }
         ]
         return {
             listMenu
