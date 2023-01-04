@@ -1,6 +1,6 @@
 <template>
   <div class="sticky top-0 h-screen w-[16vw] flex flex-col justify-between border-r-2 border-slate-700/50">
-    <div>
+    <div class="overflow-auto">
     <div class="flex items-center gap-x-2 text-lg px-5 pt-10 pb-5 mb-5">
         <!-- <img width="80px" class="hidden lg:inline-flex" src="@/assets/images/terra-black.svg" alt="terra-logo"> -->
         <img width="20rem" src="@/assets/images/terra-logo-mobile.svg" alt="terra-logo">
@@ -57,14 +57,19 @@ export default {
                 link: '/ibc-tokens'
             },
             {
-                title: 'Dex Screener',
-                icon: 'swap-horizontal-sharp',
-                link: '/dex'
+                title: 'Luna',
+                icon: 'cash-sharp',
+                link: '/luna'
             },
             {
-                title: 'Cex Screener',
-                icon: 'globe-sharp',
-                link: '/cex'
+                title: 'Validators',
+                icon: 'shield-checkmark-sharp',
+                link: '/validators'
+            },
+            {
+                title: 'Rich List',
+                icon: 'list-circle-sharp',
+                link: '/rich-list'
             }
         ]
         return {
