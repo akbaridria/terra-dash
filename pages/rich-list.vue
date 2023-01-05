@@ -156,8 +156,6 @@ export default {
       for(let i = 0; i <= 99; i++) {
         top100Balance += this.result.listAddress[i+2].totalBalance
       }
-      console.log(top100Balance);
-      console.log(tokenSupply)
       this.result.top100 = top100Balance/tokenSupply
       this.loading.statLoading = false
     }

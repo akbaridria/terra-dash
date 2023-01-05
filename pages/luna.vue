@@ -175,7 +175,6 @@ export default {
     async fetchData(){
       this.loading.statLoading = true
       const data = await this.$axios.get('https://api.coingecko.com/api/v3/coins/terra-luna-2')
-      console.log(data)
       this.result.price = data.data.market_data.current_price.usd;
       this.result.circulating = data.data.market_data.circulating_supply;
       this.result.supply = data.data.market_data.total_supply;

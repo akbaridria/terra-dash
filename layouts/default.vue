@@ -25,7 +25,6 @@ export default {
       } else {
         this.$store.commit('SET_THEME', 'dark')
       }
-      console.log(this.$store.state);
     }
   }
 }
